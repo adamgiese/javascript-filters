@@ -1,0 +1,13 @@
+{
+  "name": "javascript-filters",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Adam Giese <adam.giese@underarmour.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "mdx-deck deck.mdx"
+  },
+  "dependencies": {
+    "mdx-deck": "^1.5.15"
+  }
+}
