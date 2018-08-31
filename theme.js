@@ -1,8 +1,8 @@
-import { dark } from 'mdx-deck/themes'
+import { book as theme } from 'mdx-deck/themes'
 import okaidia from 'react-syntax-highlighter/styles/prism/okaidia'
 
 export default {
-  ...dark,
+  ...theme,
   prism: {
     style: okaidia
   }
