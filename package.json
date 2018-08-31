@@ -5,7 +5,8 @@
   "author": "Adam Giese <adam.giese@underarmour.com>",
   "license": "MIT",
   "scripts": {
-    "start": "mdx-deck deck.mdx"
+    "start": "mdx-deck deck.mdx",
+    "build": "mdx-deck build deck.mdx"
   },
   "dependencies": {
     "mdx-deck": "^1.5.15"
