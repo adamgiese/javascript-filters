@@ -86,10 +86,15 @@ _`multiply` returns a function_
 ---
 
 ```js
-[1,2,3,4].map(double); // [2,4,6,8]
-[1,2,3,4].map(triple); // [3,6,9,12]
+const negate = fn => (...args) => !fn(...args);
+// the first  ... gathers all parameters into an array
+// the second ... spreads the results of that array
+
+const isPizza    = doesValueMatch('pizza');
+const isNotPizza = negate(isPizza);
+restaurants.filter(isNotPizza);
 ```
-_`[].map` accepts a function_
+_`negate` accepts a function_
 
 ---
 
@@ -111,19 +116,6 @@ const isEven = number => !(number % 2);
 const isPizza = ({cuisine}) => cuisine === 'pizza';
 const filteredRestaurants = restaurants.filter(isPizza);
 // Via 313, East Side Pies, etc
-```
-
----
-
-## Negating predicates
-```js
-const negate = fn => (...args) => !fn(...args);
-// the first  ... gathers all parameters into an array
-// the second ... spreads the results of that array
-
-const isPizza    = doesValueMatch('pizza');
-const isNotPizza = negate(isPizza);
-restaurants.filter(isNotPizza);
 ```
 
 ---
