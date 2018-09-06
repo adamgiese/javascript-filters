@@ -27,6 +27,7 @@ const restaurants = [
   }, /* ... */
 ]
 ```
+_Example API response_
 
 ---
 
@@ -37,17 +38,20 @@ _a function that returns a boolean_
 
 ```js
 const isString = arg => typeof arg === 'string';
+// arrow function:       (arguments) => { /* do something */ }
+// with implicit return: (arguments) => arguments.length
 
 isString('foo'); // true
 isString(1);     // false
-isString({});    // false
-isString();      // false
 ```
 
 ---
 
 ```js
 const isPizza  = ({cuisine}) => cuisine === 'pizza';
+//  object destructuring:
+//  ({cuisine})   => { console.log(cuisine) }
+//  (restaurant)  => { console.log(restaurant.cuisine) }
 const pTerrys  = { cuisine: 'burgers' };
 const via313   = { cuisine: 'pizza' };
 
@@ -64,6 +68,13 @@ _a function that accepts or returns another function_
 
 ```js
 const multiply = a => b => a * b;
+/*
+function multiply(a) {
+  return function(b) {
+    return a * b;
+  }
+}
+*/
 const double = multiply(2);
 const triple = multiply(3);
 
