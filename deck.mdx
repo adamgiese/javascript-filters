@@ -109,19 +109,21 @@ const isEven = number => !(number % 2);
 
 ```js
 const isPizza = ({cuisine}) => cuisine === 'pizza';
-restaurants.filter(isPizza);
+const filteredRestaurants = restaurants.filter(isPizza);
 // Via 313, East Side Pies, etc
 ```
 
 ---
 
-## Returning predicates
+## Negating predicates
 ```js
-const doesValueMatch = key => val => obj => obj[key] === val;
-const matchesCuisine = doesValueMatch('cuisine');
+const negate = fn => (...args) => !fn(...args);
+// the first  ... gathers all parameters into an array
+// the second ... spreads the results of that array
 
-const isBurger = matchesCuisine('burger');
-const isPizza  = matchesCuisine('pizza');
+const isPizza    = doesValueMatch('pizza');
+const isNotPizza = negate(isPizza);
+restaurants.filter(isNotPizza);
 ```
 
 ---
@@ -140,35 +142,20 @@ const isBelowOrEqual = (a,b) => isBelow(a,b) || isEqual(a,b);
 ```js
 const doesValueCompare = comp => key => b => obj => comp(obj[key],b);
 
-const valueAtLeast = doesValueCompare(isAbove);
-const valueAtMost  = doesValueCompare(isBelow);
+const valueAtLeast = doesValueCompare(isAboveOrEqual);
+const valueAtMost  = doesValueCompare(isBelowOrEqual);
+const valueEquals  = doesValueCompare(isEqual);
 
-const belowPrice  = valueAtMost('price');
-const aboveRating = valueAtLeast('rating');
+const matchesCuisine = valueEquals('cuisine');
+const belowPrice     = valueAtMost('price');
+const aboveRating    = valueAtLeast('rating');
 
-const isCheap = belowPrice(2);
-const isGood  = aboveRating(3);
+const isCheap  = belowPrice(2);
+const isGood   = aboveRating(3);
+const isPizza  = matchesCuisine('pizza');
+const isBurger = matchesCuisine('burger');
 ```
-
----
-
-## Negating predicates
-```js
-const negate = fn => (...args) => !fn(...args);
-```
-
----
-
-```js
-const isPizza    = doesValueMatch('pizza');
-const isNotPizza = negate(isPizza);
-restaurants.filter(isNotPizza);
-```
-
----
-
-## compose
-_to combine simple functions to build more complicated ones_
+_One way to DRY up your code_
 
 ---
 
@@ -179,6 +166,7 @@ const either = (p1, p2) => val => p1(val) || p2(val);
 const isCheapBurger   = both(isCheap, isBurger);
 const isPizzaOrBurger = either(isPizza, isBurger);
 ```
+
 ---
 
 ## [].every and [].some
@@ -192,11 +180,11 @@ const isPizzaOrBurger = either(isPizza, isBurger);
 ```js
 const isOdd = n => n % 2;
 
-[1,2,3,4,5,6].every(isOdd); // false
-[1,2,3,4,5,6].some(isOdd);  // true
-
+[1,2,3,4].every(isOdd);     // false
 [1,3,5,7].every(isOdd);     // true
-[1,3,5,7].some(isOdd);      // true
+
+[1,2,3,4].some(isOdd);      // true
+[2,4,6,8].some(isOdd);      // false
 ```
 
 ---
@@ -205,8 +193,12 @@ const isOdd = n => n % 2;
 const isEvery = preds => val => preds.every(pred => pred(val));
 const isAny   = preds => val => preds.some(pred => pred(val));
 
-const isValidCuisine = isAny([isBurger, isPizza, isTacos]);
+const isValidCuisine    = isAny([isBurger, isPizza, isTacos]);
 const isValidRestaurant = isEvery([isValidCuisine,isCheap,isGood]);
 
 const validRestaurants = restaurants.filter(isValidRestaurant);
 ```
+
+---
+
+# Questions?
