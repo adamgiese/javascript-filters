@@ -52,6 +52,7 @@ const isPizza  = ({cuisine}) => cuisine === 'pizza';
 //  object destructuring:
 //  ({cuisine})   => { console.log(cuisine) }
 //  (restaurant)  => { console.log(restaurant.cuisine) }
+
 const pTerrys  = { cuisine: 'burgers' };
 const via313   = { cuisine: 'pizza' };
 
@@ -68,13 +69,12 @@ _a function that accepts or returns another function_
 
 ```js
 const multiply = a => b => a * b;
-/*
-function multiply(a) {
-  return function(b) {
-    return a * b;
-  }
-}
-*/
+//  function multiply(a) {
+//    return function(b) {
+//      return a * b;
+//    }
+//  }
+
 const double = multiply(2);
 const triple = multiply(3);
 
