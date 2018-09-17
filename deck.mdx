@@ -90,11 +90,9 @@ const negate = fn => (...args) => !fn(...args);
 // the first  ... gathers all parameters into an array
 // the second ... spreads the results of that array
 
-const isPizza    = doesValueMatch('pizza');
 const isNotPizza = negate(isPizza);
-restaurants.filter(isNotPizza);
 ```
-_`negate` accepts a function_
+_`negate` accepts a function & returns a new function_
 
 ---
 
