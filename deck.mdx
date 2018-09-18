@@ -86,13 +86,38 @@ _`multiply` returns a function_
 ---
 
 ```js
-const negate = fn => (...args) => !fn(...args);
+const negate = pred => (...args) => !pred(...args);
 // the first  ... gathers all parameters into an array
 // the second ... spreads the results of that array
 
 const isNotPizza = negate(isPizza);
 ```
-_`negate` accepts a function & returns a new function_
+
+---
+
+```js
+const isAbove = (a,b) => a > b;
+const isBelow = (a,b) => a < b;
+const isEqual = (a,b) => a === b;
+
+const isAboveOrEqual = (a,b) => isAbove(a,b) || isEqual(a,b);
+const isBelowOrEqual = (a,b) => isBelow(a,b) || isEqual(a,b);
+```
+<small>Why turn simple comparisons into functions?</small>
+
+---
+
+```js
+const doesValueCompare = (key, comp, b) => obj => comp(obj[key], b);
+
+const isCheap = doesValueCompare('price', isBelowOrEqual, 2);
+const isGood  = doesValueCompare('rating', isAboveOrEqual, 3);
+
+const isBurger = doesValueCompare('cuisine', isEqual, 'burger');
+const isPizza  = doesValueCompare('cuisine', isEqual, 'pizza');
+```
+<small>Why turn simple comparisons into functions?</small><br />
+<small>So you can user them in higher order functions!</small>
 
 ---
 
@@ -115,37 +140,6 @@ const isPizza = ({cuisine}) => cuisine === 'pizza';
 const filteredRestaurants = restaurants.filter(isPizza);
 // Via 313, East Side Pies, etc
 ```
-
----
-
-```js
-const isAbove = (a,b) => a > b;
-const isBelow = (a,b) => a < b;
-const isEqual = (a,b) => a === b;
-
-const isAboveOrEqual = (a,b) => isAbove(a,b) || isEqual(a,b);
-const isBelowOrEqual = (a,b) => isBelow(a,b) || isEqual(a,b);
-```
-
----
-
-```js
-const doesValueCompare = comp => key => b => obj => comp(obj[key],b);
-
-const valueAtLeast = doesValueCompare(isAboveOrEqual);
-const valueAtMost  = doesValueCompare(isBelowOrEqual);
-const valueEquals  = doesValueCompare(isEqual);
-
-const matchesCuisine = valueEquals('cuisine');
-const belowPrice     = valueAtMost('price');
-const aboveRating    = valueAtLeast('rating');
-
-const isCheap  = belowPrice(2);
-const isGood   = aboveRating(3);
-const isPizza  = matchesCuisine('pizza');
-const isBurger = matchesCuisine('burger');
-```
-_One way to DRY up your code_
 
 ---
 
