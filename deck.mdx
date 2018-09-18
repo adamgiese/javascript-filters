@@ -31,6 +31,55 @@ _Example API response_
 
 ---
 
+### ES6 arrow function review
+
+---
+
+```js
+const noParams = () => {
+  console.log('hello');
+};
+```
+---
+
+```js
+const oneArg = arg => {
+  console.log(typeof arg);
+};
+```
+<small><code>()</code> are optional</small>
+---
+
+```js
+const implicit = arg => typeof arg;
+
+const explicit = arg => {
+  return typeof arg;
+};
+```
+<small>Implicit vs explicit return</small>
+---
+
+```js
+const withDestructuring = ({bar}) => typeof bar;
+const noDestructuring   = foo => typeof foo.bar;
+```
+
+<small>The destructuring assignment makes it possible to unpack values from objects, into distinct variables. (MDN)</small>
+---
+
+```js
+
+const gather = (...args) => args.length;
+// gather(1,'',{}); // 3
+
+const spread = (arr1, arr2) => [...arr1, ...arr2];
+// spread([1,2,3],[4,5,6]); // [1,2,3,4,5,6,];
+```
+<small><code>...</code> can "gather" or "spread"</small>
+
+---
+
 ## predicate
 _a function that returns a boolean_
 
@@ -38,8 +87,6 @@ _a function that returns a boolean_
 
 ```js
 const isString = arg => typeof arg === 'string';
-// arrow function:       (arguments) => { /* do something */ }
-// with implicit return: (arguments) => arguments.length
 
 isString('foo'); // true
 isString(1);     // false
@@ -49,9 +96,6 @@ isString(1);     // false
 
 ```js
 const isPizza  = ({cuisine}) => cuisine === 'pizza';
-//  object destructuring:
-//  ({cuisine})   => { console.log(cuisine) }
-//  (restaurant)  => { console.log(restaurant.cuisine) }
 
 const pTerrys  = { cuisine: 'burgers' };
 const via313   = { cuisine: 'pizza' };
@@ -87,8 +131,6 @@ _`multiply` returns a function_
 
 ```js
 const negate = pred => (...args) => !pred(...args);
-// the first  ... gathers all parameters into an array
-// the second ... spreads the results of that array
 
 const isNotPizza = negate(isPizza);
 ```
